@@ -241,7 +241,6 @@ with upload_cols[0]:
     uploaded_img = st.file_uploader("Choose a png or jpg file", type=["png", "jpg"], help=f":blue[{help_text}]")
     # Dropdown menu for selecting ASL alphabets
     selected_alphabet = st.selectbox("Choose an ASL Alphabet uploaded image represents", class_names)
-    ic(selected_alphabet, type(selected_alphabet))
 
     st.markdown("<h2 align='center'>OR</h2>", unsafe_allow_html=True)
 
