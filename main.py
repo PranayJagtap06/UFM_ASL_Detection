@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 # Setup page.
-about = """This is a basic Image Classification model used to detect American Sign Language (ASL). The model leverages *EfficientNet_B0* pytorch model trained on 87,000 ASL images. This app is build in association with *Unified Mentor* for machine learning project submition. I'm thankful to *Unified Mentor* to provide this platform."""
+about = """This is a basic Image Classification model used to detect American Sign Language (ASL). The model leverages *EfficientNet_B0* pytorch model trained on 87,000 ASL images. This app is build in association with *Unified Mentor* for machine learning project submition. I'm thankful to *Unified Mentor* to provide this platform.\n*[Dataset link.](https://www.kaggle.com/datasets/grassknoted/asl-alphabet)*"""
 
 st.set_page_config(page_title="American Sign Language Detector",
                    page_icon="👌👍🤚", menu_items={"About": f"{about}"})
