@@ -9,7 +9,6 @@ import random
 import torch
 import os
 from PIL import Image
-from icecream import ic
 from torchvision import transforms
 from typing import List, Optional, Tuple
 
