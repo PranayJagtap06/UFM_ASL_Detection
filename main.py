@@ -163,7 +163,7 @@ def pred_and_plot_image(model: torch.nn.Module,
         true_class = image_.split('/')[-1][:-9]
     else:
         true_class = image_.name.split("/")[-1][:-9]
-        st.write(image_.name)
+
     pred_class = class_names[target_image_pred_label]
     plt.figure()
     st.markdown("""---""")
@@ -259,7 +259,7 @@ if classify_btn:
 # Disclamer
 st.write("\n"*3)
 st.markdown("""----""")
-st.write("""*Disclamer: Predictions made by the models may be inaccurate due to the nature of the models. This is a simple demonstration of how machine learning can be used to make predictions. For more accurate predictions, consider using more complex models and larger datasets.*""")
+st.write("""*Disclamer: Predictions made by the models may be inaccurate due to the nature of the models and image data. This is a simple demonstration of how machine learning can be used to make predictions. For more accurate predictions, consider using more complex models and larger & diverse datasets.*""")
     
 st.markdown("""---""")
 st.markdown("Created by [Pranay Jagtap](https://pranayjagtap.netlify.app)")
