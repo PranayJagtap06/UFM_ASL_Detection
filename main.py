@@ -26,7 +26,7 @@ about = """This is a basic Image Classification model used to detect American Si
 
 st.set_page_config(page_title="American Sign Language Detector",
                    page_icon="👌👍🤚", menu_items={"About": f"{about}"})
-st.title(body="Hard Understanding What Your Deaf Friend Is Speaking? Here! Use this ASL Detector Tool👇")
+st.title(body="Hard Understanding What Your Deaf Friend Is Saying? Here! Use this ASL Detector Tool👇")
 st.markdown("*Assumes your friend uses American Sign Language for communication.*")
 
 
