@@ -9,6 +9,7 @@ import random
 import torch
 import os
 from PIL import Image
+from icecream import ic
 from torchvision import transforms
 from typing import List, Optional, Tuple
 
@@ -123,6 +124,7 @@ class_names = ["A", "B", "C", "D", "E", "F", "G", "H", "I",	"J", "K", "L", "M", 
 # 1. Take in a trained model, class names, image path, image size, a transform and target device
 def pred_and_plot_image(model: torch.nn.Module,
                         image_: str,
+                        alphabet: str,
                         class_names: List[str],
                         image_size: Tuple[int, int] = (224, 224),
                         transform: transforms = None) -> None:
@@ -162,7 +164,8 @@ def pred_and_plot_image(model: torch.nn.Module,
     if isinstance(image_, str):
         true_class = image_.split('/')[-1][:-9]
     else:
-        true_class = image_.name.split("/")[-1][:-9]
+        # true_class = image_.name.split("/")[-1][:-9]
+        true_class = alphabet
 
     pred_class = class_names[target_image_pred_label]
     plt.figure()
@@ -186,8 +189,8 @@ def display_test_images_grid(test_images_list: List, test_img: str):
         st.session_state.expand_test_images = False
 
     # Create an expander for test images
-    with st.expander("OR Select from Test Images", expanded=st.session_state.expand_test_images):
-        st.markdown("**Hint:** Remove uploaded image, if any, before selecting from test images.")
+    with st.expander("Select from Test Images", expanded=st.session_state.expand_test_images):
+        st.markdown(":blue[**Hint:** Remove uploaded image, if any, before selecting from test images.]")
 
         # Calculate number of columns (adjust as needed)
         num_columns = 4
@@ -230,11 +233,17 @@ def display_test_images_grid(test_images_list: List, test_img: str):
 
 # Image Selection Column
 st.markdown("""---""")
-st.header("Upload an Image 📷")
-upload_cols = st.columns([2, 1])
+upload_cols = st.columns([2, 1], vertical_alignment='center')
 with upload_cols[0]:
+    st.markdown("<h1 align='center'>Upload an Image 📷</h1>", unsafe_allow_html=True)
     # Option 1: File uploader
-    uploaded_img = st.file_uploader("Choose a png or jpg file", type=["png", "jpg"])
+    help_text = """Consider uploading colorful RGB image. Uploading grayscale image may lead to error while prediction."""
+    uploaded_img = st.file_uploader("Choose a png or jpg file", type=["png", "jpg"], help=f":blue[{help_text}]")
+    # Dropdown menu for selecting ASL alphabets
+    selected_alphabet = st.selectbox("Choose an ASL Alphabet uploaded image represents", class_names)
+    ic(selected_alphabet, type(selected_alphabet))
+
+    st.markdown("<h2 align='center'>OR</h2>", unsafe_allow_html=True)
 
     # Option 2: Test image selection
     test_img = display_test_images_grid(st.session_state.test_images, st.session_state.test_img) 
@@ -253,13 +262,13 @@ classify_btn = upload_cols[0].button(":red[Detect Sign]")
 # classify_btn click event
 if classify_btn:
     with st.spinner(":blue[Classifying...]"):
-        pred_and_plot_image(st.session_state.pt_model, st.session_state.test_img, class_names, (244, 244), st.session_state.effnet_transform)
+        pred_and_plot_image(st.session_state.pt_model, st.session_state.test_img, selected_alphabet, class_names, (244, 244), st.session_state.effnet_transform)
 
 
 # Disclamer
 st.write("\n"*3)
 st.markdown("""----""")
-st.write("""*Disclamer: Predictions made by the models may be inaccurate due to the nature of the models and image data. This is a simple demonstration of how machine learning can be used to make predictions. For more accurate predictions, consider using more complex models and larger & diverse datasets.*""")
+st.write("""*Disclamer: Predictions made by the models may be inaccurate due to the nature of the models and image data. This is a simple demonstration of how machine learning can be used to make predictions. For more accurate predictions, consider using more complex models and larger & diverse dataset.*""")
     
 st.markdown("""---""")
 st.markdown("Created by [Pranay Jagtap](https://pranayjagtap.netlify.app)")
